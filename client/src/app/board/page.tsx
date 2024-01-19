@@ -16,7 +16,7 @@ const Board = async (): Promise<JSX.Element> => {
     <>
       <h1>게시판 리스트</h1>
       {list ? (
-        <div className={"flex flex-col items-center"}>
+        <div className={"flex flex-col items-center w-full"}>
           {list.map((element) => (
             <BoardList {...element} key={element.seq} />
           ))}
