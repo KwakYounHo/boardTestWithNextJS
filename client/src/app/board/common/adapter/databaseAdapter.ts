@@ -11,11 +11,17 @@ const databaseAdapter = (database: SupabaseClient<Database>) => {
   const getAllPost = async () => {
     const { data } = await database
       .from("posts")
-      .select("seq, title, slug, created_at");
+      .select("seq, title, slug, created_at")
+      .order("seq", { ascending: false });
     return data;
   };
 
-  return { insert, getAllPost };
+  const selectSlug = async (slug: string) => {
+    const { data } = await database.from("posts").select("*").eq("slug", slug);
+    return data;
+  };
+
+  return { insert, getAllPost, selectSlug };
 };
 
 export default databaseAdapter;

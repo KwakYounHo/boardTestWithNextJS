@@ -3,7 +3,12 @@ import databaseAdapter from "@/app/board/common/adapter/databaseAdapter";
 import { cookies } from "next/headers";
 import BoardList from "@/app/board/components/BoardList";
 
+import type { Metadata } from "next";
 import type { Database } from "@/app/lib/Database";
+
+export const metadata: Metadata = {
+  title: "게시판 - 리스트",
+};
 
 const Board = async (): Promise<JSX.Element> => {
   const database = databaseAdapter(
