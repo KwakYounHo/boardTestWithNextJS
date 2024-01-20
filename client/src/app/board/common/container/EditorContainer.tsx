@@ -22,7 +22,11 @@ const EditorContainer = (props: Props): JSX.Element => {
 
   return (
     <div className={`EditContainer flex flex-col ${props.className}`}>
-      <AceEditor content={props.content} setContent={props.setContent} />
+      <AceEditor
+        content={props.content}
+        setContent={props.setContent}
+        width={"100%"}
+      />
       <MarkdownRenderer content={props.content} />
     </div>
   );

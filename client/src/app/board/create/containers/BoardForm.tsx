@@ -22,7 +22,7 @@ const BoardForm = (): JSX.Element => {
   }, [content]);
 
   const submit: SubmitHandler<FormType> = async (data) => {
-    data.slug = encodeURIComponent(data.slug);
+    data.slug = encodeURIComponent(data.title);
 
     const request = await fetch("/board/create/api", {
       method: "POST",
@@ -38,9 +38,8 @@ const BoardForm = (): JSX.Element => {
   };
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
-      <input type="text" {...register("title")} className={"border-2"} />
-      <input type="text" {...register("slug")} className={"border-2"} />
+    <form onSubmit={handleSubmit(submit)} className={"w-full"}>
+      <input type="text" {...register("title")} className={"border-2 w-full"} />
       <EditorContainer content={content} setContent={setContent} />
       <button type="submit">전송</button>
     </form>
