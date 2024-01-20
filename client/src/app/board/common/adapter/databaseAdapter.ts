@@ -20,7 +20,7 @@ const databaseAdapter = (database: SupabaseClient<Database>) => {
     return data;
   };
 
-  const selectSlug = async (slug: string, seq: number) => {
+  const selectSlugAndSeq = async (slug: string, seq: number) => {
     const { data } = await database
       .from("posts")
       .select("*")
@@ -29,7 +29,7 @@ const databaseAdapter = (database: SupabaseClient<Database>) => {
     return data;
   };
 
-  return { insert, getAllPost, selectSlug };
+  return { insert, getAllPost, selectSlugAndSeq };
 };
 
 export default databaseAdapter;

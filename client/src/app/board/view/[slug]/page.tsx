@@ -30,7 +30,7 @@ const ViewBoard = async ({
   const database = databaseAdapter(
     createServerComponentClient<Database>({ cookies })
   );
-  const post = await database.selectSlug(params.slug, searchParams.seq);
+  const post = await database.selectSlugAndSeq(params.slug, searchParams.seq);
 
   return (
     <>
