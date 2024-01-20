@@ -1,4 +1,4 @@
-import type { SupabaseClient } from "@supabase/supabase-js";
+import type { PostgrestError, SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/app/lib/Database";
 
 type PostRows = Database["public"]["Tables"]["posts"]["Row"];
@@ -29,7 +29,15 @@ const databaseAdapter = (database: SupabaseClient<Database>) => {
     return data;
   };
 
-  return { insert, getAllPost, selectSlugAndSeq };
+  const deletePost = async (seq: string): Promise<void | PostgrestError> => {
+    const { error } = await database.from("posts").delete().eq("seq", seq);
+    if (error) {
+      console.error(error);
+      return error;
+    }
+  };
+
+  return { insert, getAllPost, selectSlugAndSeq, deletePost };
 };
 
 export default databaseAdapter;

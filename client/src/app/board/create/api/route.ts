@@ -17,14 +17,23 @@ export const POST = async (req: NextRequest) => {
   const { result: data, error } = await database.insert(requestBody);
 
   if (error) {
-    return NextResponse.json(error, { status: 400 });
+    return NextResponse.json(error, {
+      status: 400,
+      headers: {
+        "Cache-Control": "no-Store",
+      },
+    });
   }
   if (data) {
     const redirectURL = new URL(
       `/board/view/${data[0].slug}?seq=${data[0].seq}`,
       req.url
     );
-    return NextResponse.json(redirectURL, { status: 201 });
+    return NextResponse.json(redirectURL, {
+      status: 201,
+      headers: {
+        "Cache-Control": "no-Store",
+      },
+    });
   }
-  return NextResponse.json("기다려", { status: 200 });
 };
