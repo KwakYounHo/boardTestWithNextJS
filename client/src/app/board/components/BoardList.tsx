@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { format } from "date-fns";
+import { utcToISO8601 } from "@/app/utils/dateManager";
 
 type Props = {
   seq: number;
@@ -16,8 +16,8 @@ const BoardList = (element: Props): JSX.Element => {
         {element.title}
       </Link>
       <div className={"flex w-1/4 justify-between"}>
-        <p>{format(new Date(element.created_at), "yyyy년 MM월 dd일")}</p>
-        <p>{format(new Date(element.created_at), "hh : mm")}</p>
+        <p>{utcToISO8601(element.created_at, "YYYY년 MM월 DD일")}</p>
+        <p>{utcToISO8601(element.created_at, "HH : mm")}</p>
       </div>
     </div>
   );
