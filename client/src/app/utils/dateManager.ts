@@ -9,6 +9,6 @@ export const utcToISO8601 = (date: string, format: string): string => {
   return dayjs(date).tz("Asia/Yangon").format(format);
 };
 
-export const toUTC = (date: Date): string => {
-  return dayjs(date).utc().format("yyyy-MM-ddTHH:mm:ss.SSS+00:00");
+export const toUtc = (date: Date): string => {
+  return dayjs(date).utc().format("YYYY-MM-DDTHH:mm:ss.SSS+00:00");
 };

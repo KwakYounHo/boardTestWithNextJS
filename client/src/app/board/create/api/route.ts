@@ -3,12 +3,16 @@ import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { type NextRequest, NextResponse } from "next/server";
 import { type Database } from "@/app/lib/Database";
 import { cookies } from "next/headers";
+import { toUtc } from "@/app/utils/dateManager";
 
 export const POST = async (req: NextRequest) => {
   const requestBody = await req.json();
   const database = databaseAdapter(
     createRouteHandlerClient<Database>({ cookies })
   );
+
+  const created_at = toUtc(new Date(Date.now()));
+  requestBody.created_at = created_at;
 
   const { result: data, error } = await database.insert(requestBody);
 
@@ -22,4 +26,5 @@ export const POST = async (req: NextRequest) => {
     );
     return NextResponse.json(redirectURL, { status: 201 });
   }
+  return NextResponse.json("기다려", { status: 200 });
 };
