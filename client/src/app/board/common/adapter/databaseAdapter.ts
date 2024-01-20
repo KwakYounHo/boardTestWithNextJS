@@ -4,8 +4,12 @@ import type { Database } from "@/app/lib/Database";
 type PostRows = Database["public"]["Tables"]["posts"]["Row"];
 
 const databaseAdapter = (database: SupabaseClient<Database>) => {
-  const insert = (data: Pick<PostRows, "article" | "slug" | "title">) => {
-    database.from("posts").insert(data);
+  const insert = async (data: Pick<PostRows, "article" | "slug" | "title">) => {
+    const { data: result, error } = await database
+      .from("posts")
+      .insert([{ ...data }])
+      .select();
+    return { result, error };
   };
 
   const getAllPost = async () => {

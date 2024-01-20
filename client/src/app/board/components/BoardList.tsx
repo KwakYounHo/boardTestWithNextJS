@@ -15,7 +15,10 @@ const BoardList = (element: Props): JSX.Element => {
       <Link href={`/board/view/${element.slug}?seq=${element.seq}`}>
         {element.title}
       </Link>
-      <p>{format(new Date(element.created_at), "yyyy년 MM월 dd일")}</p>
+      <div className={"flex w-1/4 justify-between"}>
+        <p>{format(new Date(element.created_at), "yyyy년 MM월 dd일")}</p>
+        <p>{format(new Date(element.created_at), "hh : mm")}</p>
+      </div>
     </div>
   );
 };
