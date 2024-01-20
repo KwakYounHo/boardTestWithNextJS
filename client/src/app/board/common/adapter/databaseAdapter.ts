@@ -16,8 +16,12 @@ const databaseAdapter = (database: SupabaseClient<Database>) => {
     return data;
   };
 
-  const selectSlug = async (slug: string) => {
-    const { data } = await database.from("posts").select("*").eq("slug", slug);
+  const selectSlug = async (slug: string, seq: number) => {
+    const { data } = await database
+      .from("posts")
+      .select("*")
+      .eq("slug", slug)
+      .eq("seq", seq);
     return data;
   };
 

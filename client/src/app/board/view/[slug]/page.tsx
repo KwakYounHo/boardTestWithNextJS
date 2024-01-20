@@ -10,6 +10,9 @@ type MetadataProps = {
   params: {
     slug: string;
   };
+  searchParams: {
+    seq: number;
+  };
 };
 
 export const generateMetadata = async ({
@@ -20,11 +23,14 @@ export const generateMetadata = async ({
   };
 };
 
-const ViewBoard = async ({ params }: MetadataProps): Promise<JSX.Element> => {
+const ViewBoard = async ({
+  params,
+  searchParams,
+}: MetadataProps): Promise<JSX.Element> => {
   const database = databaseAdapter(
     createServerComponentClient<Database>({ cookies })
   );
-  const post = await database.selectSlug(params.slug);
+  const post = await database.selectSlug(params.slug, searchParams.seq);
 
   return (
     <>
