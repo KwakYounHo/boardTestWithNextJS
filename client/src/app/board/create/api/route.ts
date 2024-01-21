@@ -14,16 +14,12 @@ export const POST = async (req: NextRequest) => {
   const created_at = toUtc(new Date(Date.now()));
   requestBody.created_at = created_at;
 
-  const { result: data, error } = await database.insert(requestBody);
+  const { data, error } = await database.insert(requestBody);
 
-  if (error) {
+  if (error)
     return NextResponse.json(error, {
       status: 400,
-      headers: {
-        "Cache-Control": "no-Store",
-      },
     });
-  }
   if (data) {
     const redirectURL = new URL(
       `/board/view/${data[0].slug}?seq=${data[0].seq}`,

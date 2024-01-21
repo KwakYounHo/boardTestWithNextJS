@@ -4,12 +4,14 @@ import type { Database } from "@/app/lib/Database";
 type PostRows = Database["public"]["Tables"]["posts"]["Row"];
 
 const databaseAdapter = (database: SupabaseClient<Database>) => {
-  const insert = async (data: Pick<PostRows, "article" | "slug" | "title">) => {
-    const { data: result, error } = await database
+  const insert = async (
+    insertData: Pick<PostRows, "article" | "slug" | "title">
+  ) => {
+    const { data, error } = await database
       .from("posts")
-      .insert([{ ...data }])
+      .insert([{ ...insertData }])
       .select();
-    return { result, error };
+    return { data, error };
   };
 
   const getAllPost = async () => {
@@ -31,13 +33,23 @@ const databaseAdapter = (database: SupabaseClient<Database>) => {
 
   const deletePost = async (seq: string): Promise<void | PostgrestError> => {
     const { error } = await database.from("posts").delete().eq("seq", seq);
-    if (error) {
-      console.error(error);
-      return error;
-    }
+    if (error) error;
   };
 
-  return { insert, getAllPost, selectSlugAndSeq, deletePost };
+  const updatePost = async (
+    updateData: Pick<PostRows, "title" | "article" | "updated_at" | "seq">
+  ) => {
+    const { seq, ...send } = updateData;
+    const { data, error } = await database
+      .from("posts")
+      .update({ ...send })
+      .eq("seq", updateData.seq)
+      .select();
+
+    return { data, error };
+  };
+
+  return { insert, getAllPost, selectSlugAndSeq, deletePost, updatePost };
 };
 
 export default databaseAdapter;

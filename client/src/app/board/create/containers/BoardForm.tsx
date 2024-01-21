@@ -17,6 +17,7 @@ const BoardForm = (): JSX.Element => {
   const router = useRouter();
 
   const [content, setContent] = React.useState<string>("");
+
   React.useEffect(() => {
     setValue("article", content);
   }, [content]);
@@ -33,6 +34,7 @@ const BoardForm = (): JSX.Element => {
       const redirectURL = await request.json();
       router.push(redirectURL);
     } else {
+      alert("게시글 생성 중 오류!");
       console.error(data);
     }
   };

@@ -26,6 +26,7 @@ const EditorContainer = (props: Props): JSX.Element => {
         content={props.content}
         setContent={props.setContent}
         width={"100%"}
+        defaultValue={props.content}
       />
       <MarkdownRenderer content={props.content} />
     </div>

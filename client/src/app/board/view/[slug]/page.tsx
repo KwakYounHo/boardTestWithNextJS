@@ -2,7 +2,8 @@ import databaseAdapter from "@/app/board/common/adapter/databaseAdapter";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import MarkdownRenderer from "@/app/board/common/components/MarkdownRenderer";
-import DeleteButton from "@/app/board/components/DeleteButton";
+import DeleteButton from "@/app/board/view/[slug]/components/DeleteButton";
+import Link from "next/link";
 
 import type { Database } from "@/app/lib/Database";
 import type { Metadata } from "next";
@@ -39,7 +40,14 @@ const ViewBoard = async ({
         <>
           <h1 className={"my-7 text-xl font-black"}>{post[0].title}</h1>
           <MarkdownRenderer content={post[0].article} className={"w-full"} />
-          <DeleteButton seq={searchParams.seq} />
+          <div className={"flex"}>
+            <DeleteButton seq={searchParams.seq} />
+            <Link href={`/board/update/${post[0].slug}?seq=${post[0].seq}`}>
+              <button type={"button"} className={"border-2"}>
+                업데이트
+              </button>
+            </Link>
+          </div>
         </>
       ) : (
         <p>이 문구가 보인다면 관리자에게 문의 부탁드립니다</p>
