@@ -31,9 +31,6 @@ export const POST = async (req: NextRequest) => {
     );
     return NextResponse.json(redirectURL, {
       status: 201,
-      headers: {
-        "Cache-Control": "no-Store",
-      },
     });
   }
 };

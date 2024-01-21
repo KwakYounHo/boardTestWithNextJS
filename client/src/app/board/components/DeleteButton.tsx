@@ -16,6 +16,7 @@ const DeleteButton = ({ seq }: Props): JSX.Element => {
 
     if (request.status < 400) {
       router.push(await request.json());
+      router.refresh();
     } else {
       console.error(await request.json());
     }

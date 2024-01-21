@@ -14,24 +14,15 @@ export const DELETE = async (req: NextRequest) => {
     if (error) {
       return NextResponse.json(error, {
         status: 400,
-        headers: {
-          "Cache-Control": "no-Store",
-        },
       });
     } else {
       return NextResponse.json(redirectURL, {
         status: 200,
-        headers: {
-          "Cache-Control": "no-Store",
-        },
       });
     }
   } else {
     return NextResponse.json("유효하지 않은 seq", {
       status: 400,
-      headers: {
-        "Cache-Control": "no-Store",
-      },
     });
   }
 };
